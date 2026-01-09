@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/cont/integrations
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/lWdZgI2P4YIODQ7uazsl
 ---
 
 # Integrations

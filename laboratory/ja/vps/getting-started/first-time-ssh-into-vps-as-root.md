@@ -2,9 +2,8 @@
 icon: key
 metaLinks:
   alternates:
-    - >-
-      https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/quickstart/first-time-ssh-into-vps-as-root
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/AolChTehjqM2xgWXXgl4
 ---
 
-# First Time SSH into VPS as Root
+# 初めてRootでVPSにSSH接続
 

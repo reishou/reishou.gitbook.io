@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/cont/images-and-media
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/scPRmf2UHNygzfDCY7Iu
 ---
 
 # Images & media

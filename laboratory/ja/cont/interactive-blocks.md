@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/cont/interactive-blocks
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/ULmoXhthX9AEP6aH6ZSe
 ---
 
 # Interactive blocks

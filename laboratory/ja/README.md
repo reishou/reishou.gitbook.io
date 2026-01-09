@@ -16,8 +16,8 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/quickstart
+    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/readme
 ---
 
-# Getting Started
+# 初期設定
 

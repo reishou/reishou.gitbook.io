@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/cont/editor
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/i73g4LZQanoLj7XtSO18
 ---
 
 # Editor

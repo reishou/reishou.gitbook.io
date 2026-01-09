@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/cont/markdown
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/AD9lDCmpddI5WAY92HgG
 ---
 
 # Markdown
