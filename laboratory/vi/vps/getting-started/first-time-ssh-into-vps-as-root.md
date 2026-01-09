@@ -2,8 +2,7 @@
 icon: key
 metaLinks:
   alternates:
-    - >-
-      https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/getting-started/first-time-ssh-into-vps-as-root
+    - /broken/spaces/fZMM9Pd2vdURETYcbaWM/pages/AolChTehjqM2xgWXXgl4
 ---
 
 # Lần Đầu SSH Vào VPS Với Tài Khoản Root
@@ -86,3 +85,108 @@ ssh root@123.45.67.89 -p 2222
 * **Connection refused**: Port SSH sai hoặc service SSH chưa chạy (hiếm gặp với VPS mới).
 
 Nếu thử nhiều lần sai mật khẩu và bị khóa tạm thời, hãy liên hệ hỗ trợ nhà cung cấp để reset hoặc sử dụng console khẩn cấp (VNC/KVM) nếu có.
+
+## Kiểm tra nhanh server
+
+#### Kiểm tra thời gian hoạt động của server (uptime)
+
+```bash
+uptime
+```
+
+**Output ví dụ**:
+
+```bash
+14:35:22 up 5 days,  3:12,  1 user,  load average: 0.15, 0.10, 0.08
+```
+
+**Giải thích các ký hiệu**:
+
+* `14:35:22`: Thời gian hiện tại trên server.
+* `up 5 days, 3:12`: Server đã chạy liên tục **5 ngày 3 giờ 12 phút** kể từ lần boot cuối.
+* `1 user`: Số người dùng đang đăng nhập (thường là bạn qua SSH).
+* `load average: 0.15, 0.10, 0.08`: Load trung bình trong 1, 5 và 15 phút gần nhất. Giá trị càng thấp càng tốt. Với server 1 CPU core, load < 1.0 là lý tưởng; > số core thì bắt đầu có dấu hiệu quá tải.
+
+**Lệnh thay thế (đọc dễ hơn)**:
+
+```bash
+uptime -p
+```
+
+→ Output: `up 5 days, 3 hours, 12 minutes`
+
+#### Kiểm tra dung lượng đĩa (Disk usage)
+
+```bash
+df -h
+```
+
+**Output ví dụ**:
+
+```bash
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        25G  4.2G   19G  19% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+/dev/sda15      105M  5.3M  100M   6% /boot/efi
+```
+
+**Giải thích các cột**:
+
+* `Size`: Dung lượng tổng của phân vùng.
+* `Used`: Đã sử dụng.
+* `Avail`: Còn trống.
+* `Use%`: Phần trăm đã dùng (nên giữ dưới 85-90% để tránh đầy đĩa).
+* `Mounted on`: Điểm gắn (thường / là root filesystem – quan trọng nhất).
+
+#### Kiểm tra bộ nhớ RAM và Swap
+
+```bash
+free -h
+```
+
+**Output ví dụ**:
+
+```bash
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       580Mi       2.9Gi       100Mi       350Mi       3.0Gi
+Swap:          2.0Gi          0B       2.0Gi
+```
+
+**Giải thích các cột**:
+
+* `total`: Tổng RAM/Swap.
+* `used`: Đang sử dụng thực tế.
+* `free`: Còn trống hoàn toàn.
+* `buff/cache`: Bộ nhớ dùng cho cache/buffer (có thể giải phóng khi cần).
+* `available`: Lượng RAM thực tế còn dùng được cho ứng dụng mới (quan trọng nhất).
+* `Swap`: Nếu `used` > 0 nhiều → có thể server đang thiếu RAM.
+
+#### Xem nhanh tình trạng CPU, RAM, process (top hoặc htop)
+
+```bash
+top
+```
+
+hoặc (khuyến nghị, đẹp và dễ dùng hơn):
+
+```bash
+htop
+```
+
+(Nếu chưa có htop: `apt update && apt install htop -y`)
+
+**Trong htop/top**:
+
+* Dòng đầu tiên: uptime, load average, số task/process.
+* CPU bar: `%us` (user), `%sy` (system), `%id` (idle – idle càng cao càng tốt).
+* Mem: Tương tự free -h.
+* Swap: Nên gần 0.
+* Danh sách process: Sắp xếp theo CPU/MEM bằng phím P/M.
+
+#### Tóm tắt lệnh kiểm tra nhanh (copy-paste một lần)
+
+```bash
+uptime && echo "" && df -h && echo "" && free -h && echo "" && top -bn1 | head -n 15
+```
+
+Bạn có thể chạy các lệnh này ngay sau khi login để xác nhận server ổn định trước khi tiến hành cài đặt tiếp.
