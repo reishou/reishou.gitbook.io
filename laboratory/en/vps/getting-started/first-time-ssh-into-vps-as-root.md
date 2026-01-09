@@ -2,8 +2,7 @@
 icon: key
 metaLinks:
   alternates:
-    - >-
-      https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/getting-started/first-time-ssh-into-vps-as-root
+    - /broken/pages/AolChTehjqM2xgWXXgl4
 ---
 
 # First Time SSH into VPS as Root
@@ -15,6 +14,7 @@ This guide provides detailed instructions for the first SSH connection on **macO
 ## Information You Need to Prepare
 
 From your VPS provider, you will receive:
+
 * **VPS IP address** (example: `123.45.67.89`)
 * **Login account**: `root`
 * **Root password** (sent via email or displayed on the dashboard)
@@ -31,9 +31,11 @@ Both macOS and Linux come with a built-in Terminal, making the connection proces
 {% stepper %}
 {% step %}
 Open **Terminal**:
+
 * macOS: Press `Cmd + Space` → type "Terminal"
 * Linux (Ubuntu/Debian): Press `Ctrl + Alt + T`
 {% endstep %}
+
 {% step %}
 Enter the connection command:
 
@@ -42,18 +44,16 @@ ssh root@123.45.67.89
 ```
 
 (Replace `123.45.67.89` with your actual VPS IP)
-
 {% endstep %}
 
 {% step %}
-
 On the first connection, the system will ask to confirm the fingerprint:
 
 ```bash
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 ```
 
-→ Type yes and press Enter.
+→ Type `yes` and press Enter.
 {% endstep %}
 
 {% step %}
