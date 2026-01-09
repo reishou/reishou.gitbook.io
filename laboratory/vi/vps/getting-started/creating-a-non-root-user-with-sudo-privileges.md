@@ -199,7 +199,7 @@ sudo whoami
 
 Ví dụ terminal sau khi login và dùng sudo thành công:
 
-```
+```bash
 Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-90-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
@@ -227,9 +227,9 @@ See https://ubuntu.com/esm or run: sudo pro status
 
 
 Last login: Fri Jan  9 16:20:05 2026 from 123.45.67.89
-vps-user@123.45.67.89:~$ sudo whoami
+vps-user@ubuntu:~$ sudo whoami
 [sudo] password for vps-user:
 root
-vps-user@123.45.67.89:~$
+vps-user@ubuntu:~$
 ```
 
