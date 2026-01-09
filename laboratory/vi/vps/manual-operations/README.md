@@ -16,8 +16,8 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/publish-your-docs
+    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/manual-operations
 ---
 
-# Manual Operations
+# Quản lý cơ bản & thủ công
 
