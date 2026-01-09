@@ -1,0 +1,6 @@
+---
+icon: laptop
+---
+
+# Local Automation
+
