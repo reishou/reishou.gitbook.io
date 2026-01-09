@@ -42,11 +42,3 @@
   * [バックアップ戦略と災害復旧](vps/advanced-and-maintenance/backup-strategies-and-disaster-recovery.md)
   * [よくある問題とトラブルシューティング](vps/advanced-and-maintenance/common-issues-and-troubleshooting.md)
   * [VPS のコスト最適化Tips](vps/advanced-and-maintenance/cost-optimization-tips-for-vps.md)
-
-## Containerization <a href="#cont" id="cont"></a>
-
-* [Editor](cont/editor.md)
-* [Markdown](cont/markdown.md)
-* [Images & media](cont/images-and-media.md)
-* [Interactive blocks](cont/interactive-blocks.md)
-* [Integrations](cont/integrations.md)
