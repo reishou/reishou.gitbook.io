@@ -12,7 +12,7 @@ Khi mới nhận VPS từ nhà cung cấp (DigitalOcean, Vultr, Linode, v.v.), b
 
 Bài viết này hướng dẫn chi tiết cách SSH lần đầu trên **macOS** và **Linux** (Ubuntu/Debian desktop), đồng thời tập trung vào hệ điều hành server **Ubuntu/Debian**.
 
-### 1. Thông tin cần chuẩn bị
+## Thông tin cần chuẩn bị
 
 Từ nhà cung cấp VPS, bạn sẽ nhận được:
 
@@ -25,7 +25,7 @@ Từ nhà cung cấp VPS, bạn sẽ nhận được:
 **Lưu ý bảo mật rất quan trọng**: Đăng nhập root trực tiếp bằng mật khẩu chỉ nên thực hiện **lần đầu tiên**. Ngay sau khi kết nối thành công, bạn cần thực hiện các bước bảo mật cơ bản (tạo user thường có quyền sudo, thiết lập SSH key, tắt root login, v.v.). Những bước này sẽ được hướng dẫn chi tiết ở các bài tiếp theo.
 {% endhint %}
 
-### 2. Kết nối SSH trên macOS và Linux
+## Kết nối SSH trên macOS và Linux
 
 Cả macOS và Linux đều có Terminal tích hợp sẵn, việc kết nối rất đơn giản.
 
@@ -79,7 +79,7 @@ ssh root@123.45.67.89 -p 2222
 
 (Thay `2222` bằng port thực tế)
 
-### 3. Các lỗi thường gặp và cách khắc phục
+## Các lỗi thường gặp và cách khắc phục
 
 * **Connection timed out** hoặc **No route to host**: Kiểm tra lại IP/port, đảm bảo VPS đang chạy và mạng internet của bạn ổn định. Có thể firewall nhà cung cấp chưa mở port SSH.
 * **Permission denied (publickey, password)**: Sai mật khẩu hoặc nhà cung cấp đã tắt login bằng password. Thử copy-paste mật khẩu cẩn thận hoặc liên hệ support để kiểm tra.
