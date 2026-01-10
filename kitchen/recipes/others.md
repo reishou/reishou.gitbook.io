@@ -1,0 +1,6 @@
+---
+icon: salad
+---
+
+# Others
+
