@@ -33,7 +33,7 @@ sudo nano /etc/ssh/sshd_config
 
 Sửa/chỉnh các dòng sau (comment hoặc thay đổi giá trị):
 
-```ini
+```ssh-config
 PermitRootLogin no
 PasswordAuthentication no
 PubkeyAuthentication yes
@@ -62,7 +62,7 @@ Giảm mạnh số lượng bot quét cổng 22.
 
 Trong `/etc/ssh/sshd_config`:
 
-```ini
+```ssh-config
 # Port 22
 Port 2204    # chọn cổng > 1024, tránh trùng dịch vụ phổ biến
 ```
@@ -259,7 +259,7 @@ Và đảm bảo file `/etc/apt/apt.conf.d/20auto-upgrades` có nội dung:
 
 Bash
 
-```ini
+```ssh-config
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 APT::Periodic::AutocleanInterval "7";
