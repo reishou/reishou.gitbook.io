@@ -3,10 +3,10 @@
 ## VPS
 
 * [Getting Started](README.md)
-  * [First Time SSH into VPS as Root](vps/readme/first-time-ssh-into-vps-as-root.md)
-  * [Creating a Non-Root User with Sudo Privileges](vps/readme/creating-a-non-root-user-with-sudo-privileges.md)
-  * [Basic Server Setup](vps/readme/basic-server-setup.md)
-  * [Essential Initial Security Hardening](vps/readme/essential-initial-security-hardening.md)
+  * [First Time SSH into VPS as Root](vps/getting-started/first-time-ssh-into-vps-as-root.md)
+  * [Creating a Non-Root User with Sudo Privileges](vps/getting-started/creating-a-non-root-user-with-sudo-privileges.md)
+  * [Basic Server Setup](vps/getting-started/basic-server-setup.md)
+  * [Essential Initial Security Hardening](vps/getting-started/essential-initial-security-hardening.md)
 * [Manual Operations](vps/manual-operations/README.md)
   * [Installing Common Stack](vps/manual-operations/installing-common-stack.md)
   * [Deploying a Simple Static Site Manually (Astro)](vps/manual-operations/deploying-a-simple-static-site-manually-astro.md)
