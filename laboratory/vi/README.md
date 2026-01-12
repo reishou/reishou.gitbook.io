@@ -16,7 +16,7 @@ layout:
     visible: true
 metaLinks:
   alternates:
-    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/readme
+    - https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/getting-started
 ---
 
 # Khởi đầu với VPS

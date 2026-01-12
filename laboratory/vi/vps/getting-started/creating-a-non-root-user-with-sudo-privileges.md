@@ -3,7 +3,7 @@ icon: user-gear
 metaLinks:
   alternates:
     - >-
-      https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/readme/creating-a-non-root-user-with-sudo-privileges
+      https://app.gitbook.com/s/fZMM9Pd2vdURETYcbaWM/vps/getting-started/creating-a-non-root-user-with-sudo-privileges
 ---
 
 # Tạo User Thường Có Quyền Sudo
