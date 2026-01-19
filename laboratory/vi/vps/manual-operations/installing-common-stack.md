@@ -28,7 +28,7 @@ Bước đầu tiên luôn luôn là update hệ thống và cài các công c�
 
 {% code overflow="wrap" %}
 ```bash
-bash sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git unzip build-essential ca-certificates lsb-release gnupg2
 ```
 {% endcode %}
@@ -45,36 +45,40 @@ sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring -y
 
 Import signing key
 
+{% code overflow="wrap" %}
 ```bash
-curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor
-| sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 ```
+{% endcode %}
 
 Thêm repo stable (khuyến nghị cho production)
 
+{% code overflow="wrap" %}
 ```bash
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg]
-https://nginx.org/packages/ubuntu $(lsb_release -cs) nginx"
-| sudo tee /etc/apt/sources.list.d/nginx.list
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/ubuntu $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
 ```
+{% endcode %}
 
 Pin priority để ưu tiên repo nginx.org
 
+{% code overflow="wrap" %}
 ```bash
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900"
-| sudo tee /etc/apt/preferences.d/99nginx
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900" | sudo tee /etc/apt/preferences.d/99nginx
 ```
+{% endcode %}
 
 Update & install
 
 ```bash
-sudo apt update sudo apt install nginx -y
+sudo apt update
+sudo apt install nginx -y
 ```
 
 Kiểm tra
 
 ```bash
-nginx -v systemctl status nginx
+nginx -v
+systemctl status nginx
 ```
 
 Sau khi cài xong, bạn có thể truy cập IP server qua browser → thấy trang "Welcome to nginx!" là ok.
@@ -94,8 +98,7 @@ Cài PHP 8.4 + FPM + các extension phổ biến cho Laravel (có thể thay 8.4
 
 ```bash
 sudo apt install -y php8.4 php8.4-fpm php8.4-cli php8.4-mbstring php8.4-xml php8.4-curl \
-    php8.4-zip php8.4-gd php8.4-intl php8.4-bcmath \
-    php8.4-msgpack php8.4-igbinary
+    php8.4-zip php8.4-gd php8.4-intl php8.4-bcmath
 ```
 
 Kiểm tra php
@@ -132,6 +135,7 @@ Cài đặt
 ```bash
 sudo apt update
 sudo apt install -y nodejs
+sudo npm install -g pnpm
 ```
 
 Kiểm tra
@@ -139,6 +143,7 @@ Kiểm tra
 ```bash
 node -v
 npm -v
+pnpm -v
 ```
 
 ## Cài Go (Golang) – dùng tarball official (khuyến nghị)
@@ -148,7 +153,7 @@ Repo Ubuntu thường cũ, nên official khuyên dùng tarball để luôn có p
 Tải phiên bản mới nhất (thay VERSION bằng phiên bản hiện tại, ví dụ 1.24.x)
 
 ```bash
-VERSION=1.24.0  # <-- check tại https://go.dev/dl/ để lấy version mới nhất
+VERSION=1.25.6  # <-- check tại https://go.dev/dl/ để lấy version mới nhất
 wget https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz
 ```
 
@@ -178,6 +183,29 @@ Rất hữu ích cho Laravel queue worker
 
 ```bash
 sudo apt install supervisor -y
+```
+
+Chỉnh file config (thường là `/etc/supervisor/supervisord.conf` hoặc `/etc/supervisord.conf`)
+
+```bash
+sudo nano /etc/supervisor/supervisord.conf
+```
+
+Tìm phần \[unix\_http\_server] (nếu không có thì thêm vào):
+
+{% code overflow="wrap" %}
+```bash
+[unix_http_server]
+file=/var/run/supervisor.sock          ; đường dẫn socket (giữ nguyên hoặc thay nếu khác)
+chmod=0770                             ; cho phép owner + group đọc/ghi
+chown=root:www-data                    ; thay www-data bằng group bạn muốn
+```
+{% endcode %}
+
+Save rồi restart
+
+```bash
+sudo systemctl restart supervisor
 ```
 
 Kiểm tra
