@@ -13,6 +13,7 @@ Trước khi đi vào deploy từng loại ứng dụng cụ thể (static site 
 Chúng ta sẽ cài:&#x20;
 
 * Các gói cơ bản + utils
+* Cài đặt và cấu hình Git
 * Nginx (web server/reverse proxy)
 * PHP 8.3/8.4 + PHP-FPM + extensions phổ biến (cho Laravel)
 * Composer (dependency manager cho PHP)
@@ -32,6 +33,138 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget git unzip build-essential ca-certificates lsb-release gnupg2
 ```
 {% endcode %}
+
+## Cài đặt và cấu hình Git (cho git pull non-interactive)
+
+Hầu hết các deploy thủ công đều dùng `git clone` hoặc `git pull` để lấy/update code từ repo (GitHub, GitLab...). Chúng ta cần cài Git và setup SSH key để pull không hỏi password/host key mỗi lần (rất quan trọng cho script deploy tự động sau này).
+
+{% stepper %}
+{% step %}
+### Cài đặt Git
+
+```bash
+sudo apt update
+sudo apt install git -y
+```
+
+Kiểm tra
+
+```bash
+git --version
+```
+{% endstep %}
+
+{% step %}
+### Cấu hình cơ bản Git (global)
+
+Set thông tin user/email (bắt buộc cho commit nếu bạn push từ server, và tránh warning). Dùng email GitHub/GitLab thật.
+
+```bash
+git config --global user.name "reishou"
+git config --global user.email "reishou90@gmail.com"
+git config --global init.defaultBranch main
+```
+{% endstep %}
+
+{% step %}
+### Setup SSH key cho non-interactive pull (khuyến nghị deploy key)
+
+Tạo SSH key **không passphrase** (để script tự động pull mà không hỏi pass). Dùng Ed25519 (an toàn + nhanh hơn RSA).
+
+```bash
+ssh-keygen -t ed25519 -C "deploy@your-server" -f ~/.ssh/id_ed25519_deploy -N ""
+```
+
+Kết quả: Tạo 2 file
+
+* \~/.ssh/id\_ed25519\_deploy (private key - bảo mật!)
+* \~/.ssh/id\_ed25519\_deploy.pub (public key - add vào repo)
+
+Đặt quyền chuẩn (rất quan trọng!)
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519_deploy
+```
+{% endstep %}
+
+{% step %}
+### **Thêm public key vào GitHub/GitLab**
+
+Copy nội dung public key
+
+```bash
+cat ~/.ssh/id_ed25519_deploy.pub
+```
+
+Vào repo settings → Deploy keys (GitHub) hoặc SSH Keys (GitLab) → Add new key → Paste public key.
+
+**Tick "Allow write access"** chỉ nếu bạn cần push từ server (thường không cần cho deploy thuần pull).
+{% endstep %}
+
+{% step %}
+### Tạo file config ssh
+
+```bash
+nano ~/.ssh/config
+```
+
+Paste nội dung sau (thay tên key nếu khác)
+
+```ssh-config
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_deploy
+  IdentitiesOnly yes
+```
+
+Lưu file → set quyền
+
+```bash
+chmod 600 ~/.ssh/config
+```
+{% endstep %}
+
+{% step %}
+### Test kết nối SSH non-interactive
+
+```bash
+ssh -T git@github.com
+```
+
+Nên thấy: `Hi username! You've successfully authenticated...`
+
+Nếu lần đầu gặp warning `The authenticity of host...`:\
+Chạy thủ công 1 lần `ssh -T git@github.com` và gõ `yes` để add host key vào `~/.ssh/known_hosts`. Sau này pull sẽ không hỏi nữa.
+{% endstep %}
+
+{% step %}
+### (Tùy chọn nhưng recommend) Xử lý lỗi "dubious ownership" (Git >= 2.35+)
+
+Nếu bạn deploy vào folder không owned bởi user hiện tại (ví dụ chown www-data cho web), Git sẽ block vì security (CVE-2022-24765). Add safe.directory:
+
+```bash
+git config --global --add safe.directory /var/www
+```
+{% endstep %}
+
+{% step %}
+### Ví dụ sử dụng sau này
+
+Khi deploy project:
+
+```bash
+cd /var/www/my-project
+git clone git@github.com:username/repo.git .   # lần đầu
+# Hoặc nếu đã có: git pull origin main --rebase
+```
+{% endstep %}
+{% endstepper %}
+
+Với setup trên, `git pull` sẽ chạy êm ru mà không hỏi gì!
+
+Hoàn tất → Git đã sẵn sàng cho các phần deploy tiếp theo.
 
 ## Cài đặt Nginx (từ official repo – khuyến nghị stable)
 
