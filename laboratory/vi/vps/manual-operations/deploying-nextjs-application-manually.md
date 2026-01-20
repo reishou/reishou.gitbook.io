@@ -92,7 +92,7 @@ export const redis = new Redis({
 ## **Cài dependencies và build**
 
 ```bash
-pnpm install  # Khuyến nghị pnpm cho nhanh và tiết kiệm disk
+pnpm install --prod # Khuyến nghị pnpm cho nhanh và tiết kiệm disk
 pnpm build    # Tạo .next/ với static chunks + server bundles
 ```
 
@@ -110,6 +110,8 @@ Trong psql shell:
 CREATE DATABASE next;
 CREATE USER next_user WITH ENCRYPTED PASSWORD 'Abcd@1234';
 GRANT ALL PRIVILEGES ON DATABASE next TO next_user;
+\c next
+GRANT ALL PRIVILEGES ON SCHEMA public TO next_user;
 \q
 ```
 
@@ -138,15 +140,14 @@ module.exports = {
     {
       name: 'chomusuke-demo-next',
       script: 'pnpm',
-      args: 'start',
+      args: 'start -p 3001',
+      cwd: '/var/www/chomusuke-demo-next',
       instances: 'max',
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'production',
       },
-      env_production: {
-        PORT: 3001,
-      },
+      env_file: '.env.production',
     },
   ],
 };
