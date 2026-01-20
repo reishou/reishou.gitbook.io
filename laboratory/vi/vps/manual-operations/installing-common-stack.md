@@ -269,6 +269,8 @@ Cài đặt
 sudo apt update
 sudo apt install -y nodejs
 sudo npm install -g pnpm
+pnpm setup
+source /home/vps-user/.bashrc
 ```
 
 Kiểm tra

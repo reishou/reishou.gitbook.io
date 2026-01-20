@@ -11,7 +11,7 @@
   * [Cài Đặt Stack Phổ Biến](vps/manual-operations/installing-common-stack.md)
   * [Deploy Thủ Công Trang Static Đơn Giản (Astro)](vps/manual-operations/deploying-a-simple-static-site-manually-astro.md)
   * [Deploy Thủ Công Ứng Dụng Laravel](vps/manual-operations/deploying-laravel-application-manually.md)
-  * [Deploy Thủ Công Ứng Dụng NestJS](vps/manual-operations/deploying-nestjs-application-manually.md)
+  * [Deploy Thủ Công Ứng Dụng NextJS](vps/manual-operations/deploying-nextjs-application-manually.md)
   * [Deploy Thủ Công Ứng Dụng Golang](vps/manual-operations/deploying-golang-application-manually.md)
   * [Trỏ Domain Về VPS Qua Cloudflare](vps/manual-operations/pointing-your-domain-to-vps-with-cloudflare.md)
   * [Cấu Hình HTTPS Với SSL (Cloudflare hoặc Let's Encrypt)](vps/manual-operations/setting-up-https-with-ssl-cloudflare-letsencrypt.md)
