@@ -35,12 +35,14 @@ GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o chomusuke-go ./cmd/web
 
 Từ máy local:
 
+{% code overflow="wrap" %}
 ```bash
 # Tạo folder trên VPS nếu chưa có (chạy lệnh này trước nếu cần)
 # ssh vps-user@your-vps-ip "sudo mkdir -p /var/www/chomusuke-demo-go && sudo chown vps-user:vps-user /var/www/chomusuke-demo-go"
 
 scp chomusuke-go vps-user@your-vps-ip:/var/www/chomusuke-demo-go/
 ```
+{% endcode %}
 
 (Thay `your-vps-ip` bằng IP thực tế. Folder `/var/www/chomusuke-demo-go` sẽ dùng để đồng bộ với các project web khác của bạn.)
 
