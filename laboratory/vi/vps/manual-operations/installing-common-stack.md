@@ -281,11 +281,20 @@ npm -v
 pnpm -v
 ```
 
-## Cài Go (Golang) – dùng tarball official (khuyến nghị)
+## Không cần cài Go trên production VPS – Cross-compile binary từ local (khuyến nghị)
 
-Repo Ubuntu thường cũ, nên official khuyên dùng tarball để luôn có phiên bản mới nhất.
+Khác với Node.js hay PHP/Laravel (cần runtime cài trên server), **Go tận dụng lợi thế lớn nhất: single static binary**. Sau khi build, bạn chỉ cần copy một file thực thi duy nhất lên VPS và chạy – **không cần cài Go toolchain** (go compiler, git, v.v.) trên production server.
 
-Tải phiên bản mới nhất (thay VERSION bằng phiên bản hiện tại, ví dụ 1.24.x)
+**Tại sao không nên cài Go trên VPS production?**
+
+* Tăng rủi ro bảo mật: Thêm tool → mở rộng attack surface không cần thiết.
+* Làm server "bẩn": Production nên minimal, chỉ install những gì app cần chạy (binary + Nginx + Postgres nếu dùng).
+* Không cần thiết: Build binary trên local/dev machine rồi scp lên là xong, nhanh và an toàn hơn.
+* Cộng đồng Go khuyến nghị cross-compile cho mọi deployment thủ công.
+
+**Nếu bạn vẫn muốn cài Go trên VPS (chỉ cho dev/test nhanh, không recommend production lâu dài):**
+
+Tải phiên bản mới nhất (thay VERSION bằng phiên bản hiện tại, ví dụ 1.25.6)
 
 ```bash
 VERSION=1.25.6  # <-- check tại https://go.dev/dl/ để lấy version mới nhất
