@@ -233,3 +233,49 @@ root
 vps-user@ubuntu:~$
 ```
 
+## Cho phép user non-root chạy sudo mà không cần nhập password (tùy chọn)
+
+Sau khi tạo user non-root (ví dụ `vps-user`), bạn có thể cấu hình để user này chạy lệnh `sudo` **không cần nhập password** (giống user mặc định ubuntu/ec2-user của DigitalOcean/AWS). Điều này rất tiện khi cài package, reload service nhiều lần.
+
+**Chạy lệnh sau dưới quyền root hoặc sudo**:
+
+```bash
+# Tạo file sudoers riêng (an toàn nhất)
+echo "vps-user ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/vps-user
+
+# Set quyền file đúng (bắt buộc 0440)
+sudo chmod 0440 /etc/sudoers.d/vps-user
+```
+
+Hoặc dùng `visudo` để chỉnh sửa an toàn:
+
+```bash
+sudo visudo -f /etc/sudoers.d/vps-user
+```
+
+Dán dòng sau vào file rồi lưu:
+
+```bash
+vps-user ALL=(ALL) NOPASSWD:ALL
+```
+
+**Kiểm tra**:
+
+```bash
+sudo -u vps-user sudo whoami
+```
+
+→ Nếu trả về `root` mà **không hỏi password** → thành công.
+
+#### Lưu ý bảo mật quan trọng
+
+* **NOPASSWD:ALL** giúp tiện lợi nhưng **giảm bảo mật**: Nếu ai đó có quyền truy cập user này (qua SSH key bị lộ hoặc app bị hack), họ có thể chạy lệnh root mà không cần password.
+*   **Cách an toàn hơn**: Giới hạn lệnh sudo (chỉ cho phép các lệnh cần thiết)<br>
+
+    <pre class="language-bash" data-overflow="wrap"><code class="lang-bash">vps-user ALL=(ALL) NOPASSWD: /usr/bin/apt, /usr/bin/systemctl, /usr/sbin/nginx, /usr/bin/pnpm, /usr/bin/pm2
+    </code></pre>
+
+
+* **Khuyến nghị**: Nếu bạn dùng VPS cho production, giữ nguyên phải nhập password sudo (mặc định khi tạo user) để tăng bảo mật. Chỉ thêm NOPASSWD nếu bạn deploy thường xuyên và chấp nhận rủi ro.
+
+Sau khi cấu hình xong, user non-root của bạn sẽ hoạt động giống hệt user mặc định của nhà cung cấp (ubuntu/ec2-user) về trải nghiệm sudo.
