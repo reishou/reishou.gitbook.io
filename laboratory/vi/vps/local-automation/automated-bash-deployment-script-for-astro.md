@@ -30,7 +30,8 @@ Script `deploy-astro.sh` sử dụng `git clone` để lấy mã nguồn từ Gi
 **Trước khi chạy deploy-astro.sh, hãy chạy script generate SSH key nếu chưa có**:
 
 ```bash
-sudo bash ./scripts/setup-vps-ssh.sh
+chmod x+ scripts/*.sh
+./scripts/setup-vps-ssh.sh
 ```
 
 Script sẽ:
@@ -90,10 +91,10 @@ Cấp quyền thực thi (nếu chưa):
 chmod +x scripts/apps/deploy-astro.sh
 ```
 
-Chạy script (khuyến nghị dùng sudo vì cần install gói và config Nginx):
+Chạy script (không sử dụng sudo):
 
 ```bash
-sudo ./scripts/apps/deploy-astro.sh
+./scripts/apps/deploy-astro.sh
 ```
 
 Script sẽ hỏi từng bước một cách rõ ràng (sử dụng hàm `ask_confirm` từ `utils.sh` để default Enter là Yes/No hợp lý).
