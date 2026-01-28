@@ -52,7 +52,7 @@ Copy public key được hiển thị (dạng `ssh-ed25519 AAAAC3Nza... user@hos
 
 
 
-    ```
+    ```bash
     ssh -T git@github.com
     ```
 
