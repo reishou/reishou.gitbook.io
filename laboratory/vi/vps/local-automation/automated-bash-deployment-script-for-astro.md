@@ -48,15 +48,11 @@ Copy public key được hiển thị (dạng `ssh-ed25519 AAAAC3Nza... user@hos
 * Đặt Title ví dụ: `VPS-$(hostname) - github_vps_ed25519 - 2025`
 * Nhấn Add SSH key
 
-2.  Test kết nối GitHub:
+Test kết nối GitHub:
 
-
-
-    ```bash
-    ssh -T git@github.com
-    ```
-
-
+```bash
+ssh -T git@github.com
+```
 
 Nếu thấy thông báo: `Hi username! You've successfully authenticated...` → thành công.
 
