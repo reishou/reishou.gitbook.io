@@ -80,6 +80,66 @@ Từ lần sau bạn sẽ kết nối bằng lệnh:
 ssh -p 2204 vps-user@123.45.67.89
 ```
 
+#### **Cảnh báo quan trọng: Cập nhật firewall cloud provider sau khi đổi port SSH**
+
+Sau khi thay đổi port SSH (ví dụ từ 22 sang 2204) và restart dịch vụ, kết nối SSH với port mới có thể vẫn thất bại (Connection timed out hoặc refused), dù server-side đã listen đúng port.
+
+Lý do: Hầu hết cloud provider có **lớp firewall ngoài** (cloud-level) chỉ allow port 22 mặc định. Bạn cần thêm rule cho port mới ở đây, **trước khi đóng session SSH cũ**.
+
+**Với Oracle Cloud Infrastructure (OCI) – Always Free / Compute instance**
+
+* Đăng nhập OCI Console: https://cloud.oracle.com
+* Chọn **Compute > Instances** → click instance của bạn.
+* Trong tab **Primary VNIC** (hoặc Networking) → click tên **Subnet**.
+* Click **Security Lists** → chọn **Default Security List** (hoặc list đang attach).
+* Click **Add Ingress Rules**:
+  * **Source Type**: CIDR
+  * **Source CIDR**: `0.0.0.0/0` (cho phép từ mọi IP – hoặc IP của bạn để an toàn hơn: `<your-ip>/32`)
+  * **IP Protocol**: TCP
+  * **Source Port Range**: All
+  * **Destination Port Range**: `<port_mới>` (ví dụ: 2204)
+  * **Description**: Allow custom SSH port
+* Click **Add Ingress Rules** → chờ 1-2 phút để rule propagate.
+* Test kết nối từ terminal khác:
+
+```bash
+ssh -p 2204 vps-user@<IP-cua-ban>
+```
+
+Nếu thành công, bạn có thể xóa rule port 22 cũ (nếu muốn) hoặc giữ lại để backup.
+
+**Nếu bị lock ngoài**: Sử dụng **Serial Console** trong OCI Console (Resources → Console connection → Create serial console connection) để login root/user và fix iptables/nftables nếu cần.
+
+**Trên server (nếu dùng console để fix):**
+
+Ubuntu OCI thường dùng **iptables** (không ufw mặc định). Kiểm tra và thêm rule:
+
+```bash
+sudo iptables -L -v -n   # xem chain INPUT
+sudo iptables -I INPUT -p tcp --dport 2204 -j ACCEPT   # thêm rule cho port mới
+sudo netfilter-persistent save   # save nếu có package iptables-persistent
+# Hoặc install nếu chưa:
+sudo apt install iptables-persistent -y
+```
+
+Nếu dùng nftables (kiểm tra `sudo nft list ruleset`):
+
+```bash
+sudo nft add rule inet filter input tcp dport 2204 accept
+sudo nft list ruleset > /etc/nftables.conf
+sudo systemctl restart nftables
+```
+
+**Các provider khác (tóm tắt nhanh)**
+
+* **Vultr / DigitalOcean**: Thêm Firewall Rule inbound TCP port mới.
+* **AWS Lightsail**: Edit Networking → Add rule TCP port mới.
+* **Hetzner / Contabo**: Thường không có cloud firewall, chỉ cần fix iptables/nftables.
+
+{% hint style="info" %}
+**Mẹo an toàn**: Luôn test port mới từ một terminal/tab khác **trước khi logout session cũ**. Nếu script hardening tự động enable firewall, kiểm tra xem nó đã allow port SSH hiện tại chưa.
+{% endhint %}
+
 ## Thiết lập Firewall với UFW
 
 UFW (Uncomplicated Firewall) là công cụ firewall mặc định và cực kỳ thân thiện trên Ubuntu, giúp bạn dễ dàng quản lý quy tắc iptables mà không cần nhớ syntax phức tạp.
@@ -269,7 +329,7 @@ APT::Periodic::AutocleanInterval "7";
 
 1. Đảm bảo đăng nhập được bằng `vps-user` + SSH key
 2. Disable root + cấm PasswordAuthentication trong `sshd_config`
-3. Đổi port SSH (rất khuyến khích)
+3. Đổi port SSH (rất khuyến khích) -> cập nhật Security List (OCI) hoặc firewall cloud provider trước khi disconnect.
 4. Cấu hình UFW (chỉ mở port cần thiết)
 5. Cài & cấu hình Fail2Ban cho SSH
 6. Bật unattended-upgrades
