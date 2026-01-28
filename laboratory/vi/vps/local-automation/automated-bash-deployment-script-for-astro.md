@@ -23,6 +23,48 @@ metaLinks:
 * Quyền sudo (script cần install gói nếu thiếu)
 * Domain đã trỏ về IP VPS (A record cho HTTP, A/AAAA cho HTTPS nếu dùng Certbot)
 
+## Chuẩn bị SSH key cho GitHub (nếu repo private hoặc cần push/pull sau này)
+
+Script `deploy-astro.sh` sử dụng `git clone` để lấy mã nguồn từ GitHub. Nếu repo của bạn là **private** hoặc bạn muốn push code/update từ VPS sau này, cần có SSH key đã add vào GitHub.
+
+**Trước khi chạy deploy-astro.sh, hãy chạy script generate SSH key nếu chưa có**:
+
+```bash
+sudo bash ./scripts/setup-vps-ssh.sh
+```
+
+Script sẽ:
+
+* Hỏi tên key bạn muốn (default: `id_ed25519`, bạn có thể nhập tùy ý như `github_vps_ed25519`)
+* Kiểm tra key cũ có tồn tại không → hỏi overwrite nếu có
+* Hỏi có đặt passphrase không (khuyến nghị Yes cho bảo mật)
+* Tạo key pair ed25519 (an toàn và nhanh)
+* Hiển thị **public key** dạng text để copy
+
+Copy public key được hiển thị (dạng `ssh-ed25519 AAAAC3Nza... user@hostname`):
+
+* Vào GitHub → Settings → SSH and GPG keys → New SSH key
+* Paste public key vào ô "Key"
+* Đặt Title ví dụ: `VPS-$(hostname) - github_vps_ed25519 - 2025`
+* Nhấn Add SSH key
+
+2.  Test kết nối GitHub:
+
+
+
+    ```
+    ssh -T git@github.com
+    ```
+
+
+
+Nếu thấy thông báo: `Hi username! You've successfully authenticated...` → thành công.
+
+**Lưu ý**:
+
+* Nếu bạn đã có SSH key và add vào GitHub rồi → có thể skip bước này.
+* Script `deploy-astro.sh` sẽ tự clone bằng HTTPS nếu repo public (không cần key), nhưng dùng SSH sẽ tiện hơn cho private repo và các thao tác sau.
+
 ## Các tính năng chính của script
 
 * Kiểm tra và cài Nginx nếu chưa có (hỏi xác nhận)
