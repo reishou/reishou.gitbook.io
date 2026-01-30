@@ -83,12 +83,12 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 11. **PM2 start**: Start app dùng `ecosystem.config.js` có sẵn, in pm2 status.
 12. **Summary**: In URL HTTP/HTTPS, thư mục site, root path, config file.
 
-#### Template chính (đã dùng trong script)
+## Template chính (đã dùng trong script)
 
 * **Nginx**: `./config/nginx/next.conf.example` (hỗ trợ static export hoặc server mode, log theo folder\_name)
 * **PM2**: Dùng `ecosystem.config.js` có sẵn trong repo Next.js (script chỉ start và save)
 
-#### Lợi ích khi dùng script
+## Lợi ích khi dùng script
 
 * Tiết kiệm thời gian: Từ clone đến live chỉ 5-10 phút thay vì thủ công 30-60 phút.
 * Giảm lỗi: Validation input, default hợp lý, test `nginx -t` trước reload, fix permission tự động.
@@ -96,7 +96,7 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 * Nhất quán: Dùng chung `utils.sh`, màu log, prompt tiếng Anh.
 * Dễ mở rộng: Có thể thêm auto migrate, seed, storage:link nếu dùng Prisma.
 
-#### Lưu ý & troubleshooting
+## Lưu ý & troubleshooting
 
 * Script chạy **không cần sudo toàn bộ** – chỉ dùng sudo cho apt, chown, systemctl, certbot.
 * Domain phải trỏ đúng IP VPS trước khi chạy Certbot.
@@ -105,7 +105,7 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 * Nếu PM2 không chạy: Check log `pm2 logs` hoặc `ecosystem.config.js` có script start đúng không.
 * Repo mẫu: [https://github.com/reishou/chomusuke-demo-next](https://github.com/reishou/chomusuke-demo-next) (dùng để test script).
 
-#### Kết luận
+## Kết luận
 
 `deploy-next.sh` là một phần quan trọng trong bộ tool tự động hóa VPS của mình (chomusuke-vps-bash). Bạn có thể fork repo, customize template hoặc mở rộng cho các framework khác dựa trên flow tương tự.
 

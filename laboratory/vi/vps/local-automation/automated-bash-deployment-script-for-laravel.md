@@ -30,7 +30,7 @@ metaLinks:
 * Sau đó **rsync toàn bộ source code** vào `/var/www/my-laravel-app` để Nginx đọc (best practice: source code ở home user writable, web root ở `/var/www` read-only).
 * Đảm bảo chạy script từ **root repo** (`chomusuke-vps-bash/`), không cd vào thư mục project trước.
 
-#### Các tính năng chính của script
+## Các tính năng chính của script
 
 * Kiểm tra và cài tự động các công cụ cần thiết: nginx, pnpm, php, composer, rsync, postgresql (psql), php extensions (bcmath, mbstring, pgsql, curl, gd, intl, xml, zip)
 * Hỏi cài Redis (tùy chọn, không bắt buộc)
@@ -46,7 +46,7 @@ metaLinks:
 * Cấu hình Supervisor cho queue workers từ template `./config/supervisor/laravel-worker.conf.example` (tùy chọn)
 * In summary: URL, thư mục site, root path, config file
 
-#### Cách chạy script
+## Cách chạy script
 
 Vào thư mục repo:
 
@@ -68,7 +68,7 @@ Chạy script (không cần sudo toàn bộ, script tự dùng sudo khi cần):
 
 Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm` từ `utils.sh` để default Enter hợp lý).
 
-#### Flow tương tác chi tiết
+## Flow tương tác chi tiết
 
 1. **Prerequisites**: Kiểm tra nginx, pnpm, php, composer, rsync, postgresql, php extensions → hỏi cài nếu thiếu.
 2. **Redis** (tùy chọn): Hỏi có cài không nếu chưa có.
@@ -86,12 +86,12 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 14. **Supervisor**: Hỏi setup queue worker nếu supervisorctl có sẵn.
 15. **Summary**: In URL HTTP/HTTPS, thư mục site, root path, config file.
 
-#### Template chính (đã dùng trong script)
+## Template chính (đã dùng trong script)
 
 * **Nginx**: `./config/nginx/laravel.conf.example` (location php-fpm, root /public, log theo folder\_name)
 * **Supervisor**: `./config/supervisor/laravel-worker.conf.example` (queue:work với 4 processes, log `storage/logs/worker.log`)
 
-#### Lợi ích khi dùng script
+## Lợi ích khi dùng script
 
 * Tiết kiệm thời gian: Từ clone đến live chỉ 5-10 phút thay vì thủ công 30-60 phút.
 * Giảm lỗi: Validation input, default hợp lý, test nginx -t trước reload, fix permission storage/logs/cache tự động.
@@ -99,7 +99,7 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 * Nhất quán: Dùng chung utils.sh, màu log, prompt tiếng Anh.
 * Dễ mở rộng: Có thể thêm auto migrate, seed, storage:link, queue restart.
 
-#### Lưu ý & troubleshooting
+## Lưu ý & troubleshooting
 
 * Script chạy **không cần sudo toàn bộ** – chỉ dùng sudo cho apt, chown, systemctl, certbot.
 * Domain phải trỏ đúng IP VPS trước khi chạy Certbot.
@@ -108,7 +108,7 @@ Script sẽ hỏi từng bước một cách rõ ràng (sử dụng `ask_confirm
 * Nếu queue worker không chạy: Check log `/var/www/<folder>/storage/logs/worker.log` hoặc `sudo supervisorctl status`.
 * Repo mẫu: [https://github.com/reishou/chomusuke-demo-lara](https://github.com/reishou/chomusuke-demo-lara) (dùng để test script).
 
-#### Kết luận
+## Kết luận
 
 `deploy-laravel.sh` là một phần quan trọng trong bộ tool tự động hóa VPS của mình (`chomusuke-vps-bash`). Bạn có thể fork repo, customize template hoặc mở rộng cho các framework khác (Next.js, NestJS, v.v.) dựa trên flow tương tự.
 

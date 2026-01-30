@@ -99,7 +99,7 @@ Chạy script (không sử dụng sudo):
 
 Script sẽ hỏi từng bước một cách rõ ràng (sử dụng hàm `ask_confirm` từ `utils.sh` để default Enter là Yes/No hợp lý).
 
-#### Flow tương tác chi tiết
+## Flow tương tác chi tiết
 
 Script chạy theo wizard-style:
 
@@ -120,7 +120,7 @@ Script chạy theo wizard-style:
 
 Sau khi hoàn tất, script in summary với URL truy cập.
 
-#### Template Nginx (./config/astro.conf.example)
+## Template Nginx (./config/astro.conf.example)
 
 Template được thiết kế tối ưu cho Astro static site:
 
@@ -132,7 +132,7 @@ Template được thiết kế tối ưu cho Astro static site:
 
 Bạn có thể tùy chỉnh thêm trong template (ví dụ thêm brotli, proxy headers nếu dùng Cloudflare).
 
-#### Lợi ích khi dùng script
+## Lợi ích khi dùng script
 
 * Tiết kiệm thời gian: Từ clone đến live chỉ vài phút thay vì thủ công 15-30 phút
 * Giảm lỗi: Validation input, default hợp lý, test nginx -t trước reload
@@ -140,7 +140,7 @@ Bạn có thể tùy chỉnh thêm trong template (ví dụ thêm brotli, proxy 
 * Nhất quán: Dùng chung utils.sh, màu log, prompt tiếng Anh
 * Dễ mở rộng: Sau này có thể thêm auto git pull + rebuild qua cron
 
-#### Lưu ý & troubleshooting
+## Lưu ý & troubleshooting
 
 * Script chạy với quyền sudo (cần để install gói và config /etc/nginx)
 * Domain phải trỏ đúng IP VPS trước khi chạy Certbot
@@ -148,7 +148,7 @@ Bạn có thể tùy chỉnh thêm trong template (ví dụ thêm brotli, proxy 
 * Build Astro yêu cầu Node.js ≥ 18 (script giả định đã có từ setup trước)
 * Nếu gặp lỗi npm → chạy `nvm use` hoặc `apt install nodejs npm` thủ công trước
 
-#### Kết luận
+## Kết luận
 
 `deploy-astro.sh` là một phần trong bộ tool tự động hóa VPS của mình (chomusuke-vps-bash). Bạn có thể fork repo, customize template hoặc thêm hỗ trợ cho các framework khác (Laravel, Next.js) dựa trên flow tương tự.
 
